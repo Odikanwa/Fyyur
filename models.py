@@ -58,8 +58,8 @@ class Show(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     start_time = db.Column(db.DateTime, nullable=False, default=DateTime)
-    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'), nullable=False)
-    venue_id = db.Column(db.Integer, db.ForeignKey('venue.id'), nullable=False)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'), nullable=True)
+    venue_id = db.Column(db.Integer, db.ForeignKey('venue.id'), nullable=True)
 
     # Return a dander wrapper method for debugging
     def __repr__(self):
