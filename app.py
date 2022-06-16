@@ -268,10 +268,12 @@ def show_artist(artist_id):
   # shows the artist page with the given artist_id
   # TODO: replace with real artist data from the artist table, using artist_id
   artist = Artist.query.get(artist_id)
-  shows = Show.query.filter_by(artist_id=artist_id).all()
+  # shows = Show.query.filter_by(artist_id=artist_id).all()
+  shows = db.session.query(Show).join(Artist)
   our_current_time = datetime.now()
   past_shows = []
   upcoming_shows = []
+  
   for show in shows:
     data = {
       "venue_id": show.venue_id,
@@ -283,6 +285,7 @@ def show_artist(artist_id):
       upcoming_shows.append(data)
     else:
       past_shows.append(data)
+
   data = {
       "id": artist.id,
       "name": artist.name,
@@ -318,7 +321,7 @@ def edit_artist(artist_id):
     "phone": artists.phone,
     "website_link": artists.website_link,
     "facebook_link": artists.facebook_link,
-    "seeking_venue": artists.seeking_venue,
+    "seeking_venue": bool(artists.seeking_venue),
     "seeking_description": artists.seeking_description,
     "image_link": artists.image_link
   }
@@ -343,7 +346,7 @@ def edit_artist_submission(artist_id):
     artist.image_link=request.form['image_link']
     artist.facebook_link=request.form['facebook_link'] 
     artist.website_link=request.form['website_link']
-    artist.seeking_venue=bool(request.form['seeking_venue'])
+    artist.seeking_venue=bool(request.form.get('seeking_venue'))
     artist.seeking_description=request.form['seeking_description']
     print(artist.phone)
     try:
@@ -379,7 +382,7 @@ def edit_venue(venue_id):
     "phone": venues.phone,
     "website_link": venues.website_link,
     "facebook_link": venues.facebook_link,
-    "seeking_talent": venues.seeking_talent,
+    "seeking_talent": bool(venues.seeking_talent),
     "seeking_description": venues.seeking_description,
     "image_link": venues.image_link
   }
@@ -404,7 +407,7 @@ def edit_venue_submission(venue_id):
     venue.image_link=request.form['image_link']
     venue.facebook_link=request.form['facebook_link'] 
     venue.website_link=request.form['website_link']
-    venue.seeking_talent=bool(request.form['seeking_talent'])
+    venue.seeking_talent=bool(request.form.get('seeking_talent'))
     venue.seeking_description=request.form['seeking_description']
     print(venue.phone)
     try:

@@ -10,6 +10,10 @@ DEBUG = True
 
 
 # TODO IMPLEMENT DATABASE URL
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:Odikanwa@localhost:5432/fyyurapp'
+
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASS')
+SQLALCHEMY_DATABASE_URI = 'postgresql://{}:{}@localhost:5432/fyyurapp'.format(db_user, db_password)
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 

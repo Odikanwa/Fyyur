@@ -21,8 +21,8 @@ class Venue(db.Model):
     image_link = db.Column(db.String(500), nullable=False)
     facebook_link = db.Column(db.String(120), nullable=False)
     website_link = db.Column(db.String(120), nullable=False)
-    seeking_talent = db.Column(db.Boolean, nullable=False, default=False)
-    seeking_description = db.Column(db.String(500), nullable=False)
+    seeking_talent = db.Column(db.Boolean, nullable=True, default=False)
+    seeking_description = db.Column(db.String(500), nullable=True)
     shows = db.relationship('Show', backref='venue', lazy=True)
 
     # Return a dander wrapper method for debugging

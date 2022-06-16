@@ -1,14 +1,16 @@
 from datetime import datetime
 from flask_wtf import Form
 from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
-from wtforms.validators import DataRequired, AnyOf, URL
+from wtforms.validators import DataRequired, AnyOf, URL, Length
 
 class ShowForm(Form):
     artist_id = StringField(
-        'artist_id'
+        'artist_id',
+         validators=[DataRequired()]
     )
     venue_id = StringField(
-        'venue_id'
+        'venue_id',
+         validators=[DataRequired()]
     )
     start_time = DateTimeField(
         'start_time',
@@ -18,13 +20,13 @@ class ShowForm(Form):
 
 class VenueForm(Form):
     name = StringField(
-        'name', validators=[DataRequired()]
+        'name', validators=[DataRequired(), Length(min=0, max=250)]
     )
     city = StringField(
-        'city', validators=[DataRequired()]
+        'city', validators=[DataRequired(), Length(min=0, max=120)]
     )
     state = SelectField(
-        'state', validators=[DataRequired()],
+        'state', validators=[DataRequired(), Length(min=0, max=120)],
         choices=[
             ('AL', 'AL'),
             ('AK', 'AK'),
@@ -80,13 +82,13 @@ class VenueForm(Form):
         ]
     )
     address = StringField(
-        'address', validators=[DataRequired()]
+        'address', validators=[DataRequired(), Length(min=0, max=120)]
     )
     phone = StringField(
-        'phone'
+        'phone', validators=[DataRequired(), Length(min=0, max=120)]
     )
     image_link = StringField(
-        'image_link'
+        'image_link', validators=[DataRequired(), Length(min=0, max=500)]
     )
     genres = SelectMultipleField(
         # TODO implement enum restriction
@@ -114,29 +116,31 @@ class VenueForm(Form):
         ]
     )
     facebook_link = StringField(
-        'facebook_link', validators=[URL()]
+        'facebook_link', validators=[URL(), Length(min=0, max=120)]
     )
     website_link = StringField(
-        'website_link'
+        'website_link', validators=[URL(), Length(min=0, max=120)]
     )
 
-    seeking_talent = BooleanField( 'seeking_talent' )
+    seeking_talent = BooleanField(
+         'seeking_talent' 
+    )
 
     seeking_description = StringField(
-        'seeking_description'
+        'seeking_description', validators = [Length(min=0, max=120)]
     )
 
 
 
 class ArtistForm(Form):
     name = StringField(
-        'name', validators=[DataRequired()]
+        'name', validators=[DataRequired(), Length(min=0, max=250)]
     )
     city = StringField(
-        'city', validators=[DataRequired()]
+        'city', validators=[DataRequired(), Length(min=0, max=120)]
     )
     state = SelectField(
-        'state', validators=[DataRequired()],
+        'state', validators=[DataRequired(), Length(min=0, max=120)],
         choices=[
             ('AL', 'AL'),
             ('AK', 'AK'),
@@ -193,10 +197,10 @@ class ArtistForm(Form):
     )
     phone = StringField(
         # TODO implement validation logic for state
-        'phone'
+        'phone', validators = [Length(min=0, max=120)]
     )
     image_link = StringField(
-        'image_link'
+        'image_link', validators=[URL(), DataRequired(), Length(min=0, max=500)]
     )
     genres = SelectMultipleField(
         'genres', validators=[DataRequired()],
@@ -207,7 +211,7 @@ class ArtistForm(Form):
             ('Country', 'Country'),
             ('Electronic', 'Electronic'),
             ('Folk', 'Folk'),
-            ('Funk', 'Funk'),
+            ('Funk', 'Funk'), 
             ('Hip-Hop', 'Hip-Hop'),
             ('Heavy Metal', 'Heavy Metal'),
             ('Instrumental', 'Instrumental'),
@@ -224,16 +228,16 @@ class ArtistForm(Form):
      )
     facebook_link = StringField(
         # TODO implement enum restriction
-        'facebook_link', validators=[URL()]
+        'facebook_link', validators=[URL(), Length(min=0, max=120)]
      )
 
     website_link = StringField(
-        'website_link'
+        'website_link', validators=[URL(), Length(min=0, max=120)]
      )
 
     seeking_venue = BooleanField( 'seeking_venue' )
 
     seeking_description = StringField(
-            'seeking_description'
+            'seeking_description', validators = [Length(min=0, max=500)]
      )
 

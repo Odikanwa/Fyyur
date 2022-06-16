@@ -149,3 +149,13 @@ python3 app.py
 
 3. **Verify on the Browser**<br>
 Navigate to project homepage in the virtual desktop (by clicking the DESKTOP button in the workspace) [http://127.0.0.1:5000/] (http://127.0.0.1:5000/) or [http://localhost:5000](http://localhost:5000) or in your local virtual environment. 
+
+Last Review
+
+JOIN statements are used to correctly execute joined queries.
+
+The code joins tables from existing models to select Artists by Venues where they previously performed, successfully filling out the Venues page with a “Past Performances” section.
+
+The code joins tables from existing models to successfully fill out the Artists page with a “Venues Performed” section.
+
+he code includes correct equivalents in SQL for all corresponding SQLAlchemy statements.
